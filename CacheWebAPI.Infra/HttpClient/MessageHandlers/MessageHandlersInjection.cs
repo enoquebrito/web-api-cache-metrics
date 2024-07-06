@@ -4,9 +4,11 @@ namespace CacheWebAPI.Infra.HttpClient.MessageHandlers.Handlers;
 
 public static class MessageHandlersInjection
 {
-    public static IServiceCollection AddMessageHandlers(this IServiceCollection services)
+    public static IServiceCollection RegisterMessageHandlers(this IServiceCollection services)
     {
-        return services
-            .AddScoped<ResponseLoggerHandler>();
+        _ = services
+            .AddHttpClient<ResponseLoggerHandler>();
+
+        return services;
     }
 }

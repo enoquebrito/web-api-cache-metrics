@@ -2,9 +2,7 @@ using System.Net;
 
 namespace CacheWebAPI.Infra.HttpClient.MessageHandlers.Handlers;
 
-public class ResponseLoggerHandler(
-    HttpMessageHandler innerHandler
-    ) : DelegatingHandler(innerHandler)
+public class ResponseLoggerHandler : DelegatingHandler
 {
     protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
     {

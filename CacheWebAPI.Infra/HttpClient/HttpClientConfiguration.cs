@@ -11,7 +11,9 @@ public static class HttpClientConfiguration
     public static IServiceCollection AddCustomHttpClient(this IServiceCollection services)
     {
         _ = services
+            .AddTransient<ResponseLoggerHandler>()
             .AddRefitClient<IAddressApi>()
+            .AddHttpMessageHandler<ResponseLoggerHandler>()
             .ConfigureHttpClient(client => client.BaseAddress = new Uri("https://viacep.com.br"));
 
         return services;

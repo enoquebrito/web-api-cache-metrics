@@ -15,4 +15,8 @@
       <ProjectReference Include="..\CacheWebAPI.Domain\CacheWebAPI.Domain.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Remove="HttpClient\HttpClientInjection.cs" />
+    </ItemGroup>
+
 </Project>
