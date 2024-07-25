@@ -1,16 +1,17 @@
 using System.Net;
+using Microsoft.Extensions.Logging;
 
 namespace CacheWebAPI.Infra.HttpClient.MessageHandlers.Handlers;
 
-public class ResponseLoggerHandler : DelegatingHandler
+public class ResponseLoggerHandler(ILogger<ResponseLoggerHandler> logger) : DelegatingHandler
 {
     protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
     {
-        Console.WriteLine($"Request: {request.Method} {request.RequestUri}");
+        logger.LogInformation("Request: {Method} - {Uri}", request.Method, request.RequestUri);
 
         var response = await base.SendAsync(request, cancellationToken);
 
-        Console.WriteLine($"Response: {response.StatusCode}");
+        logger.LogInformation("Response: {StatusCode}", response.StatusCode);
 
         if (response.StatusCode is not HttpStatusCode.OK)
         {
@@ -19,7 +20,7 @@ public class ResponseLoggerHandler : DelegatingHandler
         }
 
         var content = await response.Content.ReadAsStringAsync(cancellationToken);
-        Console.WriteLine($"Response Content: {content}");
+        logger.LogInformation("Response Content: {Content}", content);
 
         return response;
     }

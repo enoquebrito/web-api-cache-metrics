@@ -1,13 +1,14 @@
+using CacheWebAPI.Infra.HttpClient.MessageHandlers.Handlers;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace CacheWebAPI.Infra.HttpClient.MessageHandlers.Handlers;
+namespace CacheWebAPI.Infra.HttpClient.MessageHandlers;
 
 public static class MessageHandlersInjection
 {
     public static IServiceCollection RegisterMessageHandlers(this IServiceCollection services)
     {
         _ = services
-            .AddHttpClient<ResponseLoggerHandler>();
+            .AddTransient<ResponseLoggerHandler>();
 
         return services;
     }

@@ -5,8 +5,8 @@ namespace CacheWebAPI.Infra.HttpClient;
 
 public static class HttpClientInjection
 {
-    private static void RegisterHttpClientServices(this IServiceCollection services)
+    public static IServiceCollection AddHttpHandlers(this IServiceCollection services)
     {
-        _ = services.AddMessageHandlers();
+        return services.AddSingleton<ResponseLoggerHandler>();
     }
 }

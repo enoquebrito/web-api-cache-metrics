@@ -5,7 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
     .AddSwaggerGen()
-    .AddCustomHttpClient()
+    .AddHttpHandlers()
     .AddWebServices()
     .AddControllers();
 

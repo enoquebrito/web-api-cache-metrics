@@ -5,26 +5,20 @@ namespace CacheWebAPI.Controllers;
 
 [ApiController]
 [Route("v1/[controller]")]
-public class CustomerController(IAddressWebService addressApi) : ControllerBase
+public class AddressController(IAddressWebService addressApi, ILogger<AddressController> logger) : ControllerBase
 {
-    [HttpGet("/zipcode/{id}")]
-    public async Task<IActionResult> GetCustomerZipCode(string id)
+    [HttpGet]
+    public async Task<IActionResult> GetCustomerZipCode([FromQuery] string zipCode)
     {
-        if (string.IsNullOrWhiteSpace(id))
+        logger.LogInformation("Iniciando captura de dados para o CEP {Cep}", zipCode);
+        
+        if (string.IsNullOrWhiteSpace(zipCode))
         {
             return BadRequest("ZipCode cannot be null");
         }
 
-        var response = await addressApi.GetAddressAsync(id);
+        var response = await addressApi.GetAddressAsync(zipCode);
         
         return Ok(response);
-    }
-
-    [HttpPost]
-    public async Task<IActionResult> CreateCustomerAsync()
-    {
-        var uri = HttpContext.Request.PathBase;
-        
-        return await Task.FromResult(Created("teste", new { Id = "123"}));
     }
 }

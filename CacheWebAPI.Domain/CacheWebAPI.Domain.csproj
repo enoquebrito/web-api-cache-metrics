@@ -7,16 +7,14 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Refit" Version="7.0.0" />
-      <PackageReference Include="Refit.HttpClientFactory" Version="7.0.0" />
+      <Compile Remove="Features\**" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\CacheWebAPI.Domain\CacheWebAPI.Domain.csproj" />
+      <EmbeddedResource Remove="Features\**" />
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Remove="HttpClient\HttpClientConfiguration.cs" />
+      <None Remove="Features\**" />
     </ItemGroup>
-
 </Project>
