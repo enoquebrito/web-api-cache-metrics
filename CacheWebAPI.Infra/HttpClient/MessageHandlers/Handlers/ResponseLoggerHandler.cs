@@ -19,9 +19,21 @@ public class ResponseLoggerHandler(ILogger<ResponseLoggerHandler> logger) : Dele
             throw new HttpRequestException(message, null, response.StatusCode);
         }
 
-        var content = await response.Content.ReadAsStringAsync(cancellationToken);
-        logger.LogInformation("Response Content: {Content}", content);
+        logger.LogInformation(
+            "Response Content: {Content}",
+            await response.Content.ToLoggingSafeContentAsync());
 
         return response;
     }
 }
+
+internal static class HttpContentExtensions
+{
+    public static async Task<string> ToLoggingSafeContentAsync(this HttpContent content)
+    {
+        await content.LoadIntoBufferAsync();
+
+        return await content.ReadAsStringAsync();
+    }
+}
+
